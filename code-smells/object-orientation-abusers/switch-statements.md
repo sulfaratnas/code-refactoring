@@ -69,5 +69,5 @@ Switch statements become overly complex, lengthy, or difficult to maintain.
 
 ## How To Fix It
 
-[Replace Conditional With Polymorphism](.../refactorings/replace-conditional-with-polymorphism.md).
+[Replace Conditional With Polymorphism](.././../refactorings/replace-conditional-with-polymorphism.md).
 

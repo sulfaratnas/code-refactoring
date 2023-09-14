@@ -23,5 +23,5 @@ Dead code adds unnecessary complexity to the codebase, making it harder to under
 
 ## How To Fix It
 
-[Remove Dead Code](.../refactorings/remove-dead-code.md).
+[Remove Dead Code](.././../refactorings/remove-dead-code.md).
 

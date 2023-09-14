@@ -4,11 +4,6 @@ import (
 	"fmt"
 )
 
-type Movie struct {
-	Title     string
-	ShowTimes []string
-}
-
 type Booking struct {
 	MovieTitle string
 	ShowTime   string
@@ -23,14 +18,6 @@ func cancelBooking(booking *Booking) {
 }
 
 func main() {
-	movie := &Movie{
-		Title: "Avengers: Endgame",
-		ShowTimes: []string{
-			"2023-09-11 18:00",
-			"2023-09-11 20:30",
-		},
-	}
-
 	booking := &Booking{
 		MovieTitle: "Avengers: Endgame",
 		ShowTime:   "2023-09-11 18:00",

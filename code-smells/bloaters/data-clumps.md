@@ -25,6 +25,6 @@ arguments in the wrong order, or reference the wrong parameter within the method
 ## How To Fix It
 
 Instead of extracting individual fields from an object to pass them to a function, 
-use [Preserve Whole Object](..../refactorings/preserve-whole-object.md). If there is no such object, 
-use [Introduce Parameter Object](.../refactorings/introduce-parameter-object.md).
+use [Preserve Whole Object](.././../refactorings/preserve-whole-object.md). If there is no such object, 
+use [Introduce Parameter Object](.././../refactorings/introduce-parameter-object.md).
 

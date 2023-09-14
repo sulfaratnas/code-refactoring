@@ -47,4 +47,4 @@ func main() {
 
 ## How To Fix It
 
-If most of a method’s classes delegate to another class, [Remove Middle Man](.../refactorings/remove-middle-man.md) is in order.
+If most of a method’s classes delegate to another class, [Remove Middle Man](.././../refactorings/remove-middle-man.md) is in order.

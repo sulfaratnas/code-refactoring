@@ -63,6 +63,6 @@ In this example, we have a Circle and Rectangle type, each with methods for calc
 
 ## How To Fix It
 
-Use [Move Method](.../refactorings/move-method.md) to move existing class behaviors into a single class. If there’s no class appropriate for this, create a new one.
+Use [Move Method](.././../refactorings/move-method.md) to move existing class behaviors into a single class. If there’s no class appropriate for this, create a new one.
 
-If moving code to the same class leaves the original classes almost empty, try to get rid of these now-redundant classes via [Inline Class](.../refactorings/inline-class.md).
+If moving code to the same class leaves the original classes almost empty, try to get rid of these now-redundant classes via [Inline Class](.././../refactorings/inline-class.md).

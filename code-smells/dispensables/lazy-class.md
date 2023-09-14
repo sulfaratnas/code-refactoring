@@ -29,5 +29,5 @@ Lazy Classes that exist without serving a purpose can hurt code quality, readabi
 
 ## How To Fix It
 
-[Inline Class](.../refactorings/inline-class.md).
+[Inline Class](.././../refactorings/inline-class.md).
 

@@ -31,5 +31,5 @@ It can lead to maintenance challenges, increased risk of errors, and reduced cod
 
 ## How To Fix It
 
-[Extract Method](.../refactorings/extract-method.md).
+[Extract Method](.././../refactorings/extract-method.md).
 
