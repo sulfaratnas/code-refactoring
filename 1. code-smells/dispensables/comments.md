@@ -31,3 +31,7 @@ If a comment is intended to explain a complex expression, the expression should 
 If a comment explains a section of code, this section can be turned into a separate method via [Extract Method](.././../refactorings/extract-method.md). The name of the new method can be taken from the comment text itself, most likely.
 
 If a method has already been extracted, but comments are still necessary to explain what the method does, give the method a self-explanatory name. Use [Rename Method](.././../refactorings/rename-method.md) for this.
+
+## Payoff
+
+Code becomes more intuitive and obvious.

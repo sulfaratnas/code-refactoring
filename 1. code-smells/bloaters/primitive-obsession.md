@@ -21,9 +21,15 @@ func main() {
 
 ## Why It Hurts
 
-This can lead to a lack of type safety, readability, and maintainability in your code.
+- This can lead to a lack of type safety, readability, and maintainability in your code.
+- Your code becomes coupled to the underlying structure of the data, making it harder to test and reason about.
 
 
 ## How To Fix It
 
 [Replace Data Value With Object](../refactorings/replace-data-value-with-object.md).
+
+## Payoff
+
+- Better code organization and flexibility
+- Improves code readability, no more guessing about the reason for all these strange constants

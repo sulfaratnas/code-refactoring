@@ -49,3 +49,7 @@ Feature envy is a code smell that points to a potential design issue, where meth
 
 If a method clearly should be moved to another place, use [Move Method](.././../refactorings/move-method.md).
 If only part of a method accesses the data of another object, use [Extract Method](.././../refactorings/extract-method.md).
+
+## Payoff
+- Less code duplication (if the data handling code is put in a central place).
+- Better code organization (methods for handling data are next to the actual data).

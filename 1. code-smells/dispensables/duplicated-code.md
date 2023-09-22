@@ -33,3 +33,8 @@ It can lead to maintenance challenges, increased risk of errors, and reduced cod
 
 [Extract Method](.././../refactorings/extract-method.md).
 
+## Payoff
+
+- Merging duplicate code simplifies the structure of your code and makes it shorter.
+- Simplification + shortness = code that’s easier to simplify and cheaper to support.
+

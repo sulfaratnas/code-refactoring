@@ -25,3 +25,8 @@ Dead code adds unnecessary complexity to the codebase, making it harder to under
 
 [Remove Dead Code](.././../refactorings/remove-dead-code.md).
 
+## Payoff
+
+- Reduced code size.
+- Simpler support.
+

@@ -18,8 +18,7 @@ another clump.
 
 ## Why It Hurts
 
-When a method takes many positional arguments, calls to the
-method become difficult to read. It's too easy to pass
+When a method takes many positional arguments, calls to the method become difficult to read. It's too easy to pass
 arguments in the wrong order, or reference the wrong parameter within the method implementation.
 
 ## How To Fix It
@@ -27,4 +26,9 @@ arguments in the wrong order, or reference the wrong parameter within the method
 Instead of extracting individual fields from an object to pass them to a function, 
 use [Preserve Whole Object](.././../refactorings/preserve-whole-object.md). If there is no such object, 
 use [Introduce Parameter Object](.././../refactorings/introduce-parameter-object.md).
+
+## Payoff
+
+- Reduces code size.
+- Operations on particular data are now gathered in a single place, so it improves the code readability.
 

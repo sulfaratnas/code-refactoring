@@ -34,3 +34,8 @@ func main() {
 ## How To Fix It
 
 Sometimes it’s better to think of why the end object is being used. Perhaps it would make sense to use [Extract Method](.././../refactorings/extract-method.md) for this functionality and move it to the beginning of the chain, by using [Move Method](.././../refactorings/move-method.md).
+
+## Payoff
+
+- Reduces dependencies between classes of a chain.
+- Reduces the amount of bloated code.

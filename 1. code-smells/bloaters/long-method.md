@@ -37,12 +37,10 @@ func ComplexOperation(value int) {
 
 ## Why It Hurts
 
-Long methods tend to be hard to understand when they
-entangle multiple responsibilities or mutate state. When
-reading the code, you have to understand not only what each
-line does, but how it interacts with the rest of the
-method's code. The difficulty of understanding a method is
-thus something like O(n^2) in the method's length.
+Long methods tend to be hard to understand when they entangle multiple responsibilities or mutate state. When
+reading the code, you have to understand not only what each line does, but how it interacts with the rest of the
+method's code. The difficulty of understanding a method is thus something like O(n^2) in the method's length.
+
 
 ## How To Fix It
 
