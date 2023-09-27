@@ -14,9 +14,10 @@ type Movie struct {
 	ShowTimes []string
 }
 
-func makeReservation(customerName string, seats []string, movieTitle string, movieGenre string, showTime string, ticketPrice float64, paymentMethod string) {
+func makeReservation(customerName string, customerAge int, seats []string, movieTitle string, movieGenre string, showTime string, ticketPrice float64, paymentMethod string) {
 	// Logic to create a reservation
 	fmt.Printf("Reservation made for %s\n", customerName)
+	fmt.Printf("Customer Age %s\n", customerAge)
 	fmt.Printf("Seats reserved: %v\n", seats)
 	fmt.Printf("Movie: %s\n", movieTitle)
 	fmt.Printf("Genre: %s\n", movieGenre)
@@ -34,5 +35,5 @@ func main() {
 	paymentMethod := "Credit Card"
 
 	// long paramater list
-	makeReservation("Alice", seats, movieTitle, movieGenre, showTime, ticketPrice, paymentMethod)
+	makeReservation("Alice", 15, seats, movieTitle, movieGenre, showTime, ticketPrice, paymentMethod)
 }

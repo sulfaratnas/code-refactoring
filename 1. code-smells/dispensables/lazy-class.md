@@ -31,3 +31,8 @@ Lazy Classes that exist without serving a purpose can hurt code quality, readabi
 
 [Inline Class](.././../refactorings/inline-class.md).
 
+## Payoff
+
+- Reduced code size.
+- Easier maintenance.
+

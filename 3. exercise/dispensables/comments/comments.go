@@ -13,6 +13,7 @@ type Reservation struct {
 }
 
 func calculateTotalPrice(price float64, quantity int) float64 {
+	// TODO: Improve this calculation logic
 	// Calculate the total price by multiplying the price and quantity
 	return price * float64(quantity)
 }

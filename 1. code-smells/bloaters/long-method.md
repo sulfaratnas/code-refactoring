@@ -48,3 +48,7 @@ The best fix is to [Replace Inline Code With Function Call](.../refactorings/rep
 is, call other existing methods to implement the logic. 
 If no suitable helper methods exist, [Extract Method](.../refactorings/extract-method.md) can break up the
 long method into more digestible chunks.
+
+## Payoff
+
+- The code becomes easier to read and maintain.

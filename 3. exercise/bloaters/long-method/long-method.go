@@ -30,6 +30,8 @@ func bookTickets(movie *Movie, showTime time.Time, numTickets int, customerID in
 	if !validShowTime {
 		fmt.Println("Invalid showtime")
 		return nil
+	} else {
+		fmt.Println("showtime is valid")
 	}
 
 	// Step 2: Check if there are enough available tickets
@@ -37,6 +39,10 @@ func bookTickets(movie *Movie, showTime time.Time, numTickets int, customerID in
 	if numTickets > availableTickets {
 		fmt.Println("Not enough tickets available")
 		return nil
+	} else if numTickets == availableTickets {
+		fmt.Println("This is the last ticket")
+	} else if numTickets < availableTickets {
+		fmt.Println("Ticket is still available")
 	}
 
 	// Step 3: Generate a confirmation code
