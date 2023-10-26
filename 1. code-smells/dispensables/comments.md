@@ -15,7 +15,6 @@ func main() {
 
     fmt.Println("The result is:", result)
 }
-
 ```
 In this example, the Calculate function has a name that's not very descriptive, so a comment is added to explain its purpose. This is a code smell because the method name should ideally be clear enough to convey its purpose without needing a comment.
 
@@ -26,11 +25,24 @@ Redundant comments don't improve code readability.
 
 ## How To Fix It
 
-If a comment is intended to explain a complex expression, the expression should be split into understandable subexpressions using [Extract Variable](.././../refactorings/extract-variable.md).
+If a comment is intended to explain a complex expression, the expression should be split into understandable subexpressions using [Extract Variable](.././../2.%20refactorings/extract-variable.md).
 
-If a comment explains a section of code, this section can be turned into a separate method via [Extract Method](.././../refactorings/extract-method.md). The name of the new method can be taken from the comment text itself, most likely.
+If a comment explains a section of code, this section can be turned into a separate method via [Extract Method](.././../2.%20refactorings/extract-method.md). The name of the new method can be taken from the comment text itself, most likely.
 
-If a method has already been extracted, but comments are still necessary to explain what the method does, give the method a self-explanatory name. Use [Rename Method](.././../refactorings/rename-method.md) for this.
+If a method has already been extracted, but comments are still necessary to explain what the method does, give the method a self-explanatory name. Use [Rename Method](.././../2.%20refactorings/rename-method.md) for this.
+
+## Refactor
+
+```
+func AddNumbers(a, b int) int {
+    return a + b
+}
+
+func main() {
+    sum := AddNumbers(5, 10)
+    fmt.Println("Sum:", sum)
+}
+```
 
 ## Payoff
 

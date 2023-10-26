@@ -33,7 +33,43 @@ func main() {
 
 ## How To Fix It
 
-Sometimes it’s better to think of why the end object is being used. Perhaps it would make sense to use [Extract Method](.././../refactorings/extract-method.md) for this functionality and move it to the beginning of the chain, by using [Move Method](.././../refactorings/move-method.md).
+Sometimes it’s better to think of why the end object is being used. Perhaps it would make sense to use [Extract Method](.././../2.%20refactorings/extract-method.md) for this functionality and move it to the beginning of the chain, by using [Move Method](.././../2.%20refactorings/move-method.md).
+
+## Refactor
+
+```
+type Address struct {
+	City    string
+	State   string
+	Country string
+}
+
+type Person struct {
+	Name    string
+	Address *Address
+}
+
+func (p *Person) GetFullAddress() string {
+	return fmt.Sprintf("%s, %s, %s", p.Address.City, p.Address.State, p.Address.Country)
+}
+
+func main() {
+	address := &Address{
+		City:    "New York",
+		State:   "NY",
+		Country: "USA",
+	}
+
+	person := &Person{
+		Name:    "John Doe",
+		Address: address,
+	}
+
+	fullAddress := person.GetFullAddress()
+
+	fmt.Printf("%s lives in %s\n", person.Name, fullAddress)
+}
+```
 
 ## Payoff
 

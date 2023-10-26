@@ -28,10 +28,36 @@ to see at a glance what the code is doing, and where it might be unsafe to inser
 
 ## How To Fix It
 
-Use [Replace Loop With Pipeline](.../refactorings/replace-loop-with-pipeline.md) to
+Use [Replace Loop With Pipeline](.././../2.%20refactorings/replace-loop-with-pipeline.md) to
 separate data transformation from side effects.
-Additionally,[Replace Inline Code With Function Call](.../refactorings/replace-inline-code-with-function-call.md)
-and [Extract Method](.../refactorings/extract-method.md) can help abstract away complex boolean logic in conditionals.
+Additionally,[Replace Inline Code With Function Call](.././../2.%20refactorings/replace-inline-code-with-function-call.md)
+and [Extract Method](.././../2.%20refactorings/extract-method.md) can help abstract away complex boolean logic in conditionals.
+
+## Refactor
+
+```
+func main() {
+	for i := 1; i <= 3; i++ {
+		outerLoop(i)
+	}
+}
+
+func outerLoop(i int) {
+	fmt.Printf("Outer loop iteration %d\n", i)
+
+	for j := 1; j <= 2; j++ {
+		innerLoop(i, j)
+	}
+}
+
+func innerLoop(i, j int) {
+	fmt.Printf("Inner loop iteration %d\n", j)
+
+	if i == 2 && j == 1 {
+		fmt.Println("Condition met: i equals 2 and j equals 1")
+	}
+}
+```
 
 ## Payoff
 

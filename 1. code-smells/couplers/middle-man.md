@@ -44,7 +44,25 @@ func main() {
  - Middleman classes or methods often require maintenance themselves, even if they don't provide significant functionality.
  - Middlemen can introduce tighter coupling between clients and the underlying service or component.
 
+## Refactor
+
+```
+// Service represents a service that clients want to use.
+type Service struct{}
+
+// DoSomething is a method of the Service.
+func (s *Service) DoSomething() string {
+    return "Service is doing something."
+}
+
+func main() {
+    service := &Service{}
+    result := service.DoSomething()
+    fmt.Println(result)
+}
+```
+
 
 ## How To Fix It
 
-If most of a method’s classes delegate to another class, [Remove Middle Man](.././../refactorings/remove-middle-man.md) is in order.
+If most of a method’s classes delegate to another class, [Remove Middle Man](.././../2.%20refactorings/remove-middle-man.md) is in order.

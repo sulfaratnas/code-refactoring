@@ -29,7 +29,16 @@ Lazy Classes that exist without serving a purpose can hurt code quality, readabi
 
 ## How To Fix It
 
-[Inline Class](.././../refactorings/inline-class.md).
+[Inline Class](.././../2.%20refactorings/inline-class.md).
+
+## Refactor
+
+```
+func main() {
+	name := "John"
+	fmt.Println("Name:", name)
+}
+```
 
 ## Payoff
 

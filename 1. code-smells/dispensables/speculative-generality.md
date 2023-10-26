@@ -18,6 +18,19 @@ Sometimes code is created “just in case” to support anticipated future featu
 ## How To Fix It
 
 Unused fields can be simply deleted.
-[Inline Class](.././../refactorings/inline-class.md).
-[Remove Parameter](.././../refactorings/remove-parameter.md).
+[Inline Class](.././../2.%20refactorings/inline-class.md).
+[Remove Parameter](.././../2.%20refactorings/remove-parameter.md).
+
+## Refactor
+
+```
+func greetCustomer(customerName string) {
+	fmt.Println("Hello, ", customerName)
+}
+
+func main() {
+	customerName := "John"
+	greetCustomer(customerName)
+}
+```
 

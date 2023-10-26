@@ -27,7 +27,26 @@ func main() {
 
 ## How To Fix It
 
-[Replace Data Value With Object](../refactorings/replace-data-value-with-object.md).
+[Replace Data Value With Object](.././../2.%20refactorings/replace-data-value-with-object.md).
+
+## Refactor
+
+```
+type Customer struct {
+    Name string
+    Age  int
+}
+
+func main() {
+    customer := Customer{
+        Name: "John Doe",
+        Age:  30,
+    }
+
+    fmt.Printf("Customer Name: %s\n", customer.Name)
+    fmt.Printf("Customer Age: %d\n", customer.Age)
+}
+```
 
 ## Payoff
 

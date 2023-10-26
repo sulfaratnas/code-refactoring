@@ -6,10 +6,6 @@ Two code fragments look almost identical.
 ## What It Looks Like
 
 ```
-package main
-
-import "fmt"
-
 func main() {
     x := 5
     y := 10
@@ -28,10 +24,30 @@ func main() {
 
 It can lead to maintenance challenges, increased risk of errors, and reduced code maintainability.
 
-
 ## How To Fix It
 
-[Extract Method](.././../refactorings/extract-method.md).
+[Extract Method](.././../2.%20refactorings/extract-method.md).
+
+## Refactor
+
+```
+func calculateSum(x, y int) int {
+    return x + y
+}
+
+func main() {
+    x := 5
+    y := 10
+
+    // Calculation 1
+    sum1 := calculateSum(x, y)
+    fmt.Printf("Sum 1: %d\n", sum1)
+
+    // Calculation 2 (Identical to Calculation 1)
+    sum2 := calculateSum(x, y)
+    fmt.Printf("Sum 2: %d\n", sum2)
+}
+```
 
 ## Payoff
 

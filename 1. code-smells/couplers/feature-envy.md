@@ -44,11 +44,46 @@ func main() {
 
 Feature envy is a code smell that points to a potential design issue, where methods are not residing in the most appropriate classes. Identifying and addressing feature envy through refactoring can lead to more maintainable, modular, and understandable code.
 
-
 ## How To Fix It
 
-If a method clearly should be moved to another place, use [Move Method](.././../refactorings/move-method.md).
-If only part of a method accesses the data of another object, use [Extract Method](.././../refactorings/extract-method.md).
+If a method clearly should be moved to another place, use [Move Method](.././../2.%20refactorings/move-method.md).
+If only part of a method accesses the data of another object, use [Extract Method](.././../2.%20refactorings/extract-method.md).
+
+## Refactor
+
+```
+// Wallet represents a simple wallet with a balance.
+type Wallet struct {
+	balance float64
+}
+
+// Deposit allows adding money to the wallet.
+func (w *Wallet) Deposit(amount float64) {
+	w.balance += amount
+}
+
+// Withdraw allows withdrawing money from the wallet.
+func (w *Wallet) Withdraw(amount float64) {
+	w.balance -= amount
+}
+
+// Balance returns the wallet balance.
+func (w *Wallet) Balance() float64 {
+	return w.balance
+}
+
+// DoubleBalance returns the double of the wallet's balance.
+func (w *Wallet) DoubleBalance() float64 {
+	return w.Balance() * 2
+}
+
+func main() {
+	wallet := &Wallet{}
+	wallet.Deposit(100.0)
+	balance := wallet.DoubleBalance() // No more Feature Envy
+	fmt.Printf("Wallet Balance: $%.2f\n", balance)
+}
+```
 
 ## Payoff
 - Less code duplication (if the data handling code is put in a central place).

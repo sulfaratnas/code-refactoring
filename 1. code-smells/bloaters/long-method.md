@@ -44,10 +44,50 @@ method's code. The difficulty of understanding a method is thus something like O
 
 ## How To Fix It
 
-The best fix is to [Replace Inline Code With Function Call](.../refactorings/replace-inline-code-with-function-call.md)—that
+The best fix is to [Replace Inline Code With Function Call](.././../2.%20refactorings/replace-inline-code-with-function-call.md)—that
 is, call other existing methods to implement the logic. 
-If no suitable helper methods exist, [Extract Method](.../refactorings/extract-method.md) can break up the
+If no suitable helper methods exist, [Extract Method](.././../2.%20refactorings/extract-method.md) can break up the
 long method into more digestible chunks.
+
+## Refactor
+
+```
+func ComplexOperation(value int) {
+    fmt.Println("Starting complex operation...")
+
+    if value > 10 {
+        fmt.Println("Value is greater than 10.")
+    } else {
+        fmt.Println("Value is not greater than 10.")
+    }
+
+    Step1()
+    
+    if value < 5 {
+        fmt.Println("Value is less than 5.")
+    } else {
+        fmt.Println("Value is not less than 5.")
+    }
+
+    Step2()
+
+    // More conditional statements...
+
+    fmt.Println("Complex operation finished.")
+}
+
+func Step1() {
+    // Long and complex calculation step 1
+    // ...
+    fmt.Println("Step 1 completed.")
+}
+
+func Step2() {
+    // Long and complex calculation step 2
+    // ...
+    fmt.Println("Step 2 completed.")
+}
+```
 
 ## Payoff
 

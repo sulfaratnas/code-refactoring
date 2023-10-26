@@ -63,9 +63,65 @@ In this example, we have a Circle and Rectangle type, each with methods for calc
 
 ## How To Fix It
 
-Use [Move Method](.././../refactorings/move-method.md) to move existing class behaviors into a single class. If there’s no class appropriate for this, create a new one.
+Use [Move Method](.././../2.%20refactorings/move-method.md) to move existing class behaviors into a single class. If there’s no class appropriate for this, create a new one.
 
-If moving code to the same class leaves the original classes almost empty, try to get rid of these now-redundant classes via [Inline Class](.././../refactorings/inline-class.md).
+If moving code to the same class leaves the original classes almost empty, try to get rid of these now-redundant classes via [Inline Class](.././../2.%20refactorings/inline-class.md).
+
+## Refactor
+
+```
+// Shape is an interface that defines common methods for calculating area and perimeter.
+type Shape interface {
+	CalculateArea() float64
+	CalculatePerimeter() float64
+}
+
+// Circle represents a circle with a radius.
+type Circle struct {
+	Radius float64
+}
+
+// Rectangle represents a rectangle with width and height.
+type Rectangle struct {
+	Width  float64
+	Height float64
+}
+
+// CalculateArea calculates the area of a circle.
+func (c *Circle) CalculateArea() float64 {
+	return math.Pi * c.Radius * c.Radius
+}
+
+// CalculatePerimeter calculates the perimeter of a circle.
+func (c *Circle) CalculatePerimeter() float64 {
+	return 2 * math.Pi * c.Radius
+}
+
+// CalculateArea calculates the area of a rectangle.
+func (r *Rectangle) CalculateArea() float64 {
+	return r.Width * r.Height
+}
+
+// CalculatePerimeter calculates the perimeter of a rectangle.
+func (r *Rectangle) CalculatePerimeter() float64 {
+	return 2*r.Width + 2*r.Height
+}
+
+func main() {
+	circle := &Circle{Radius: 5.0}
+	rectangle := &Rectangle{Width: 4.0, Height: 6.0}
+
+	shapes := []Shape{circle, rectangle}
+
+	for _, shape := range shapes {
+		area := shape.CalculateArea()
+		perimeter := shape.CalculatePerimeter()
+		fmt.Printf("Area: %.2f\n", area)
+		fmt.Printf("Perimeter: %.2f\n", perimeter)
+	}
+}
+
+```
 
 
 ## Payoff

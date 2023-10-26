@@ -46,3 +46,36 @@ These fields may not have a meaningful, long-term purpose in the class and can c
 
 Removed the temporary fields.
 
+## Refactor
+
+```
+type Order struct {
+    ID          int
+    CustomerID  int
+    TotalAmount float64
+}
+
+func NewOrder(id, customerID int, totalAmount float64) *Order {
+    return &Order{
+        ID:          id,
+        CustomerID:  customerID,
+        TotalAmount: totalAmount,
+    }
+}
+
+func (o *Order) CalculateTaxRate(taxRate float64) float64 {
+    return o.TotalAmount * taxRate
+}
+
+func main() {
+    order := NewOrder(1, 1001, 50.0)
+    taxRate := 0.1 // 10% tax rate
+
+    // Calculate tax
+    taxAmount := order.CalculateTaxRate(taxRate)
+
+    // Print tax amount
+    fmt.Printf("Order #%d Tax Amount: $%.2f\n", order.ID, taxAmount)
+}
+```
+

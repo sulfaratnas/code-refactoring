@@ -24,8 +24,22 @@ arguments in the wrong order, or reference the wrong parameter within the method
 ## How To Fix It
 
 Instead of extracting individual fields from an object to pass them to a function, 
-use [Preserve Whole Object](.././../refactorings/preserve-whole-object.md). If there is no such object, 
-use [Introduce Parameter Object](.././../refactorings/introduce-parameter-object.md).
+use [Preserve Whole Object](.././../2.%20refactorings/preserve-whole-object.md). If there is no such object, 
+use [Introduce Parameter Object](.././../2.%20refactorings/introduce-parameter-object.md).
+
+## Refactor
+
+```
+type Point struct {
+    X, Y float64
+}
+
+func CalculateDistance(p1, p2 Point) float64 {
+    deltaX := p2.X - p1.X
+    deltaY := p2.Y - p1.Y
+    return math.Sqrt(deltaX*deltaX + deltaY*deltaY)
+}
+```
 
 ## Payoff
 
