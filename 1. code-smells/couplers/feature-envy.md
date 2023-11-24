@@ -6,39 +6,26 @@ A method accesses the data of another object more than its own data. It occurs w
 
 
 ```
-// Wallet represents a simple wallet with a balance.
-type Wallet struct {
-	balance float64
+package main
+
+import "fmt"
+
+type address struct {
+ day int
+ fee int
 }
 
-// Deposit allows adding money to the wallet.
-func (w *Wallet) Deposit(amount float64) {
-	w.balance += amount
+type employee struct {
+ id      int
+ name    string
 }
 
-// Withdraw allows withdrawing money from the wallet.
-func (w *Wallet) Withdraw(amount float64) {
-	w.balance -= amount
-}
-
-// Balance returns the wallet balance.
-func (w *Wallet) Balance() float64 {
-	return w.balance
-}
-
-// EnviousFunction is an example of a function in another class
-// that seems envious of the Wallet's balance.
-func EnviousFunction(wallet *Wallet) float64 {
-	return wallet.Balance() * 2 // Envious of Wallet's balance
-}
-
-func main() {
-	wallet := &Wallet{}
-	wallet.Deposit(100.0)
-	balance := EnviousFunction(wallet) // Feature Envy
-	fmt.Printf("Wallet Balance: $%.2f\n", balance)
+func (e employee) printEmployeeSalary(salary salary) {
+ totalSalary := salary.day * salary.fee
+ fmt.Printf("Employee %s will receive Rp. %d for %d days\n", e.name, totalSalary, salary.day)
 }
 ```
+Based on that example, there is wrong responsibility where employee calculate salary by itself.
 
 ## Why It Hurts
 
@@ -52,36 +39,26 @@ If only part of a method accesses the data of another object, use [Extract Metho
 ## Refactor
 
 ```
-// Wallet represents a simple wallet with a balance.
-type Wallet struct {
-	balance float64
+package main
+
+import "fmt"
+
+type salary struct {
+ day int
+ fee int
 }
 
-// Deposit allows adding money to the wallet.
-func (w *Wallet) Deposit(amount float64) {
-	w.balance += amount
+func (s salary) totalSalary() int {
+ return s.day * s.fee
 }
 
-// Withdraw allows withdrawing money from the wallet.
-func (w *Wallet) Withdraw(amount float64) {
-	w.balance -= amount
+type employee struct {
+ id      int
+ name    string
 }
 
-// Balance returns the wallet balance.
-func (w *Wallet) Balance() float64 {
-	return w.balance
-}
-
-// DoubleBalance returns the double of the wallet's balance.
-func (w *Wallet) DoubleBalance() float64 {
-	return w.Balance() * 2
-}
-
-func main() {
-	wallet := &Wallet{}
-	wallet.Deposit(100.0)
-	balance := wallet.DoubleBalance() // No more Feature Envy
-	fmt.Printf("Wallet Balance: $%.2f\n", balance)
+func (e employee) printEmployeeSalary(salary salary) {
+ fmt.Printf("Employee %s will receive Rp. %d for %d days\n", e.name, salary.totalSalary(), salary.day)
 }
 ```
 

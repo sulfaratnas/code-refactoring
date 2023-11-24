@@ -1,6 +1,6 @@
 # Speculative Generality
 
-There’s an unused class, method, field or parameter.
+There’s an unused class, method, field or parameter. This smell it’s really similar to Dead code. The difference is only on purpose. If the Dead code appears because of unmaintained code, the Speculative generality appears because the engineer has too much initiative. The engineer tries to cover something in the future but is not really used by now. Then after months, we realize that the code isn’t used by anyone.
 
 ## What It Looks Like
 

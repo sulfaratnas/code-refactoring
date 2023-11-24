@@ -5,54 +5,37 @@ The "Shotgun Surgery" code smell occurs when a single change to a feature or fun
 ## What It Looks Like
 
 ```
-// Circle represents a circle with a radius.
-type Circle struct {
-	Radius float64
+package main
+
+import "fmt"
+
+type userRole int
+
+const ADMIN_ROLE userRole = 1
+
+type User struct {
+ role userRole
 }
 
-// Rectangle represents a rectangle with width and height.
-type Rectangle struct {
-	Width  float64
-	Height float64
+func (u *User) Create() {
+ if u.role == ADMIN_ROLE {
+  fmt.Println("User is allowed to create request")
+ }
 }
 
-// CalculateArea calculates the area of a circle.
-func (c *Circle) CalculateArea() float64 {
-	return math.Pi * c.Radius * c.Radius
+func (u *User) Update() {
+ if u.role == ADMIN_ROLE {
+  fmt.Println("User is allowed to update request")
+ }
 }
 
-// CalculatePerimeter calculates the perimeter of a circle.
-func (c *Circle) CalculatePerimeter() float64 {
-	return 2 * math.Pi * c.Radius
-}
-
-// CalculateArea calculates the area of a rectangle.
-func (r *Rectangle) CalculateArea() float64 {
-	return r.Width * r.Height
-}
-
-// CalculatePerimeter calculates the perimeter of a rectangle.
-func (r *Rectangle) CalculatePerimeter() float64 {
-	return 2*r.Width + 2*r.Height
-}
-
-func main() {
-	circle := &Circle{Radius: 5.0}
-	rectangle := &Rectangle{Width: 4.0, Height: 6.0}
-
-	// Calculate and print areas and perimeters
-	circleArea := circle.CalculateArea()
-	circlePerimeter := circle.CalculatePerimeter()
-	rectangleArea := rectangle.CalculateArea()
-	rectanglePerimeter := rectangle.CalculatePerimeter()
-
-	fmt.Printf("Circle Area: %.2f\n", circleArea)
-	fmt.Printf("Circle Perimeter: %.2f\n", circlePerimeter)
-	fmt.Printf("Rectangle Area: %.2f\n", rectangleArea)
-	fmt.Printf("Rectangle Perimeter: %.2f\n", rectanglePerimeter)
+func (u *User) Delete() {
+ if u.role == ADMIN_ROLE {
+  fmt.Println("User is allowed to delete request")
+ }
 }
 ```
-In this example, we have a Circle and Rectangle type, each with methods for calculating their area and perimeter. Whenever a new shape is introduced or if we want to change the calculation logic for any shape, we must make changes in multiple places, leading to the "Shotgun Surgery" code smell.
+In this example, we have three methods. Each method checks the user's role. Whenever we need to modify the logic for checking the user's role or if we want to rename the const ADMIN_ROLE it will impact 3 methods and we find ourselves making changes in multiple places, which can result in the "Shotgun Surgery" code smell.
 
 ## Why It Hurts
 
@@ -69,59 +52,43 @@ If moving code to the same class leaves the original classes almost empty, try t
 
 ## Refactor
 
+we need to create a separate method and that method will used by the three methods. Let’s see the improvement code here:
 ```
-// Shape is an interface that defines common methods for calculating area and perimeter.
-type Shape interface {
-	CalculateArea() float64
-	CalculatePerimeter() float64
+package main
+
+import "fmt"
+
+type userRole int
+
+const ADMIN_ROLE userRole = 1
+
+type User struct {
+ role userRole
 }
 
-// Circle represents a circle with a radius.
-type Circle struct {
-	Radius float64
+func (u *User) Create() {
+ if u.isUserAdmin() {
+  fmt.Println("User is allowed to create request")
+ }
 }
 
-// Rectangle represents a rectangle with width and height.
-type Rectangle struct {
-	Width  float64
-	Height float64
+func (u *User) Update() {
+ if u.isUserAdmin() {
+  fmt.Println("User is allowed to update request")
+ }
 }
 
-// CalculateArea calculates the area of a circle.
-func (c *Circle) CalculateArea() float64 {
-	return math.Pi * c.Radius * c.Radius
+func (u *User) Delete() {
+ if u.isUserAdmin() {
+  fmt.Println("User is allowed to delete request")
+ }
 }
 
-// CalculatePerimeter calculates the perimeter of a circle.
-func (c *Circle) CalculatePerimeter() float64 {
-	return 2 * math.Pi * c.Radius
+func (u *User) isUserAdmin() bool {
+ return u.role == ADMIN_ROLE
 }
-
-// CalculateArea calculates the area of a rectangle.
-func (r *Rectangle) CalculateArea() float64 {
-	return r.Width * r.Height
-}
-
-// CalculatePerimeter calculates the perimeter of a rectangle.
-func (r *Rectangle) CalculatePerimeter() float64 {
-	return 2*r.Width + 2*r.Height
-}
-
-func main() {
-	circle := &Circle{Radius: 5.0}
-	rectangle := &Rectangle{Width: 4.0, Height: 6.0}
-
-	shapes := []Shape{circle, rectangle}
-
-	for _, shape := range shapes {
-		area := shape.CalculateArea()
-		perimeter := shape.CalculatePerimeter()
-		fmt.Printf("Area: %.2f\n", area)
-		fmt.Printf("Perimeter: %.2f\n", perimeter)
-	}
-}
-
 ```
+
 
 
 ## Payoff
