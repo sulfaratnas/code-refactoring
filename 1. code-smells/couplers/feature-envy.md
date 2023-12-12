@@ -2,30 +2,44 @@
 
 ## What It Looks Like
 
-A method accesses the data of another object more than its own data. It occurs when a method in one class seems more interested in the fields or methods of another class rather than its own. It often indicates that the method should belong to the class it is envious of.
+A method accesses the data of another object more than its own data. It occurs when a method in one class seems more interested in the fields or methods of another class rather than its own. It often indicates that the method should belong to the class it is envious of. Feature Envy often shows up as a misplaced responsibility.
 
 
 ```
 package main
 
-import "fmt"
-
-type address struct {
- day int
- fee int
+type Phone struct {
+	unformattedNumber string
 }
 
-type employee struct {
- id      int
- name    string
+func NewPhone(unformattedNumber string) *Phone {
+	return &Phone{unformattedNumber: unformattedNumber}
 }
 
-func (e employee) printEmployeeSalary(salary salary) {
- totalSalary := salary.day * salary.fee
- fmt.Printf("Employee %s will receive Rp. %d for %d days\n", e.name, totalSalary, salary.day)
+func (p *Phone) getAreaCode() string {
+	return p.unformattedNumber[0:3]
+}
+
+func (p *Phone) getPrefix() string {
+	return p.unformattedNumber[3:6]
+}
+
+func (p *Phone) getNumber() string {
+	return p.unformattedNumber[6:10]
+}
+
+type Customer struct {
+	mobilePhone *Phone
+}
+
+func (c *Customer) GetMobilePhoneNumber() string {
+	if c.mobilePhone != nil {
+		return fmt.Sprintf("(%s) %s-%s", c.mobilePhone.getAreaCode(), c.mobilePhone.getPrefix(), c.mobilePhone.getNumber())
+	}
+	return ""
 }
 ```
-Based on that example, there is wrong responsibility where employee calculate salary by itself.
+Based on that example, there is wrong responsibility where customer formats the phone number by itself.
 
 ## Why It Hurts
 
@@ -41,26 +55,42 @@ If only part of a method accesses the data of another object, use [Extract Metho
 ```
 package main
 
-import "fmt"
-
-type salary struct {
- day int
- fee int
+type Phone struct {
+	unformattedNumber string
 }
 
-func (s salary) totalSalary() int {
- return s.day * s.fee
+func NewPhone(unformattedNumber string) *Phone {
+	return &Phone{unformattedNumber: unformattedNumber}
 }
 
-type employee struct {
- id      int
- name    string
+func (p *Phone) getAreaCode() string {
+	return p.unformattedNumber[0:3]
 }
 
-func (e employee) printEmployeeSalary(salary salary) {
- fmt.Printf("Employee %s will receive Rp. %d for %d days\n", e.name, salary.totalSalary(), salary.day)
+func (p *Phone) getPrefix() string {
+	return p.unformattedNumber[3:6]
+}
+
+func (p *Phone) getNumber() string {
+	return p.unformattedNumber[6:10]
+}
+
+func (p *Phone) ToFormattedString() string {
+	return fmt.Sprintf("(%s) %s-%s", p.getAreaCode(), p.getPrefix(), p.getNumber())
+}
+
+type Customer struct {
+	mobilePhone *Phone
+}
+
+func (c *Customer) GetMobilePhoneNumber() string {
+	if c.mobilePhone != nil {
+		return c.mobilePhone.ToFormattedString()
+	}
+	return ""
 }
 ```
+Now Customer relies on Phone to do the formatting.
 
 ## Payoff
 - Less code duplication (if the data handling code is put in a central place).

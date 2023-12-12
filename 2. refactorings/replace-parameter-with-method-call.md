@@ -8,23 +8,18 @@ The "Replace Parameter with Method Call" refactoring technique involves replacin
 
 ```
 func main() {
-	basePrice := quantity * itemPrice;
-    seasonDiscount := this.getSeasonalDiscount();
-    fees := this.getFees();
-    finalPrice := discountedPrice(basePrice, seasonDiscount, fees);
-    fmt.Println(finalPrice)
+    basePrice := quantity * itemPrice;
+    seasonDiscount := getSeasonalDiscount(basePrice);
+    fees := getFees(basePrice);
+    finalPrice := discountedPrice(basePrice, seasonDiscount, fees); 
 }
 
-func discountedPrice(basePrice, seasonDiscount, fees float64) {
-    // some action
+func getSeasonalDiscount(basePrice float64) {
+    // some logic here
 }
 
-func getSeasonalDiscount() {
-    // some action
-}
-
-func getFees() {
-    // some action
+func getFees(basePrice float64) {
+    // some logic here
 }
 ```
 
@@ -33,21 +28,20 @@ func getFees() {
 ```
 func main() {
 	basePrice := quantity * itemPrice;
-    finalPrice := discountedPrice(basePrice, seasonDiscount, fees);
-    fmt.Println(finalPrice)
+    finalPrice := discountedPrice(basePrice);
 }
 
 func discountedPrice(basePrice) {
-    seasonDiscount := getSeasonalDiscount();
-    fees := getFees();
+    seasonDiscount := getSeasonalDiscount(basePrice);
+    fees := getFees(basePrice);
     // some action
 }
 
-func getSeasonalDiscount() {
-    // some action
+func getSeasonalDiscount(basePrice float64) {
+    // some logic here
 }
 
-func getFees() {
-    // some action
+func getFees(basePrice float64) {
+    // some logic here
 }
 ```

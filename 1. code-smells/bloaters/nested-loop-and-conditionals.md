@@ -22,16 +22,12 @@ func main() {
 
 ## Why It Hurts
 
-Code in loops and conditionals tends to conflate data transformation with side effects. This is because there's no
-way for a loop or an `if` to affect the rest of the system unless it has a side effect. As a result, it's hard
-to see at a glance what the code is doing, and where it might be unsafe to insert new code or reorder statements.
+It's hard to see at a glance what the code is doing, and where it might be unsafe to insert new code or reorder statements.
 
 ## How To Fix It
 
-Use [Replace Loop With Pipeline](.././../2.%20refactorings/replace-loop-with-pipeline.md) to
-separate data transformation from side effects.
-Additionally,[Replace Inline Code With Function Call](.././../2.%20refactorings/replace-inline-code-with-function-call.md)
-and [Extract Method](.././../2.%20refactorings/extract-method.md) can help abstract away complex boolean logic in conditionals.
+- We can use [Replace Inline Code With Function Call](.././../2.%20refactorings/replace-inline-code-with-function-call.md)
+and [Extract Method](.././../2.%20refactorings/extract-method.md) to simplify this complicated nested loop, so the method would be easier to understand.
 
 ## Refactor
 

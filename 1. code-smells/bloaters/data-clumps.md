@@ -23,9 +23,8 @@ arguments in the wrong order, or reference the wrong parameter within the method
 
 ## How To Fix It
 
-Instead of extracting individual fields from an object to pass them to a function, 
-use [Preserve Whole Object](.././../2.%20refactorings/preserve-whole-object.md). If there is no such object, 
-use [Introduce Parameter Object](.././../2.%20refactorings/introduce-parameter-object.md).
+- If your function need several parameters from an object : [Preserve Whole Object](.././../2.%20refactorings/preserve-whole-object.md). 
+- If your function contain a repeating group of parameters:  [Introduce Parameter Object](.././../2.%20refactorings/introduce-parameter-object.md).
 
 ## Refactor
 
@@ -40,6 +39,7 @@ func CalculateDistance(p1, p2 Point) float64 {
     return math.Sqrt(deltaX*deltaX + deltaY*deltaY)
 }
 ```
+For that example, we use Introduce Parameter Object to refactor the code.
 
 ## Payoff
 

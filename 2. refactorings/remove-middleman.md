@@ -1,5 +1,7 @@
 # Remove Middle Man
 
+If the middle man is not adding significant value, consider eliminating it and allowing clients to interact directly with the underlying class.
+
 ## Example
 
 ### Before

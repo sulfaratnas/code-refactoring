@@ -1,52 +1,39 @@
 # Preserve Whole Object
 
-The "Preserve Whole Object" refactoring technique is used when a function or method is being called with multiple individual data parameters, but those parameters frequently belong to the same object or entity. 
-
-Instead of passing individual parameters, you pass the entire object to simplify the function signature and make the code more maintainable.
+The "Preserve Whole Object" refactoring technique is used when a function need several parameters from an object. You can try passing the whole object.
 
 ## Example
 
 ### Before
 
 ```
-func PrintX(x float64) {
-	fmt.Printf("X: %.2f\n", x)
+type Point struct{
+	X float64
+	Y float64
 }
 
-func PrintY(y float64) {
-	fmt.Printf("Y: %.2f\n", y)
+point := Point{
+	X: 1,
+	Y: 2,
 }
 
-func main() {
-	x := 10.0
-	y := 5.0
-
-	PrintX(x)
-	PrintY(y)
-}
+printCoordinate(point.X, point.Y);
 ```
 
 ### After
 
 ```
-type Point struct {
+type Point struct{
 	X float64
 	Y float64
 }
 
-func NewPoint(x, y float64) *Point {
-	return &Point{X: x, Y: y}
+point := Point{
+	X: 1,
+	Y: 2,
 }
 
-func PrintPoint(point *Point) {
-	fmt.Printf("X: %.2f\n", point.X)
-	fmt.Printf("Y: %.2f\n", point.Y)
-}
-
-func main() {
-	point := NewPoint(10.0, 5.0)
-	PrintPoint(point)
-}
+printCoordinate(point)
 ```
 
-In this refactored code, we've introduced a Point struct to represent a point with X and Y coordinates. The PrintPoint function now accepts a Point object as a parameter. This refactoring preserves the whole object and makes the code more readable and maintainable, especially if you have more functions operating on points.
+In this refactored code, we've introduced a Point struct to represent a point with X and Y coordinates. The printCoordinate function now accepts a Point object as a parameter. This refactoring preserves the whole object and makes the code more readable and maintainable, especially if you have more functions operating on points.

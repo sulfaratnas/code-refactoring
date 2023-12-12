@@ -1,21 +1,15 @@
 # Primitive Obsession
 
-Use of primitives instead of small objects for simple tasks (such as currency, ranges, special strings for phone numbers, etc.)
-
-Use of constants for coding information (such as a constant USER_ADMIN_ROLE = 1 for referring to users with administrator rights.)
-
-Use of string constants as field names for use in data arrays.
+Primitive Obsession is a code smell in which primitive data types are used excessively to represent your data models. Instead of creating a new class for fields it is easy to use strings, integers or collections to simulate types.
 
 ## What It Looks Like
 
 ```
-func main() {
-    // Original code with primitive obsession
-    customerName := "John Doe"
-    customerAge := 30
-
-    fmt.Printf("Customer Name: %s\n", customerName)
-    fmt.Printf("Customer Age: %d\n", customerAge)
+type Person struct {
+    FirstName string
+    LastName string
+    Address string
+    ...
 }
 ```
 
@@ -32,21 +26,18 @@ func main() {
 ## Refactor
 
 ```
-type Customer struct {
-    Name string
-    Age  int
+type Person struct {
+    Name Name
+    Address string
+    ...
 }
 
-func main() {
-    customer := Customer{
-        Name: "John Doe",
-        Age:  30,
-    }
-
-    fmt.Printf("Customer Name: %s\n", customer.Name)
-    fmt.Printf("Customer Age: %d\n", customer.Age)
+type Name struct {
+    FirstName string
+    LastName string
 }
 ```
+Fields that logically belong together can be combined by replacing data value with object. This improves relatedness.
 
 ## Payoff
 

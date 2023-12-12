@@ -1,5 +1,7 @@
 # Move Method
 
+We can implement this technique if there is a method is used more in another class than in its own class or that method could be more appropriately belong to another class.
+
 ## Example
 
 ### Before

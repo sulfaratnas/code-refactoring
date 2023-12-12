@@ -2,8 +2,7 @@
 
 This refactoring changes the interface of a method.
 
-It applies when the method has a large number of parameters
-that form one or more logical groupings.
+It applies when your function contain a repeating group of parameters.
 
 It would be better to pass fewer objects that group the data
 together. This would allow people reading the code to more

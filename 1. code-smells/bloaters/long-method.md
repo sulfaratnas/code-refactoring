@@ -44,9 +44,10 @@ method's code. The difficulty of understanding a method is thus something like O
 
 ## How To Fix It
 
-The best fix is to [Replace Inline Code With Function Call](.././../2.%20refactorings/replace-inline-code-with-function-call.md)—that
-is, call other existing methods to implement the logic. 
-If no suitable helper methods exist, [Extract Method](.././../2.%20refactorings/extract-method.md) can break up the
+As a rule of thumb, if you feel the need to comment on something inside a method, you should take this code and put it in a new method. Even a single line can and should be split off into a separate method, if it requires explanations. And if the method has a descriptive name, nobody will need to look at the code to see what it does.
+
+- The best fix is to [Replace Inline Code With Function Call](.././../2.%20refactorings/replace-inline-code-with-function-call.md) that is, call other existing methods to implement the logic. 
+- If no suitable helper methods exist, [Extract Method](.././../2.%20refactorings/extract-method.md) can break up the
 long method into more digestible chunks.
 
 ## Refactor

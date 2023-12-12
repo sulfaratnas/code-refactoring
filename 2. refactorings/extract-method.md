@@ -1,5 +1,7 @@
 # Extract Method
 
+We can use this technique when you have code fragment that can be grouped together. We just need to move this code fragment to a new method and change the old code by calling this method.
+
 ## Example
 
 ### Before
@@ -23,11 +25,9 @@ func main() {
 
 ```
 func main() {
-    // Original code with a long method
     name := "John Doe"
     age := 30
 
-    // Refactored code with extracted methods
     greetPerson(name)
     introducePerson(age)
 }
