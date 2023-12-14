@@ -2,7 +2,6 @@
 
 A parameter isn’t used in the body of a method. Need to remove the unused parameter.
 
-
 ## Example
 
 ### Before

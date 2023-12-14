@@ -17,9 +17,9 @@ Sometimes code is created “just in case” to support anticipated future featu
 
 ## How To Fix It
 
-Unused fields can be simply deleted.
-[Inline Class](.././../2.%20refactorings/inline-class.md).
-[Remove Parameter](.././../2.%20refactorings/remove-parameter.md).
+
+- Unused class can be removed using [Inline Class](.././../2.%20refactorings/inline-class.md).
+- Unused fields can be simply deleted using [Remove Parameter](.././../2.%20refactorings/remove-parameter.md).
 
 ## Refactor
 

@@ -5,21 +5,23 @@
 ### Before
 
 ```
-func main() {
-    fmt.Println("Hello, World!")
+// Function with dead code
+func calculateSum(a, b int) int {
+	// This block of code is not reachable
+	if false {
+		// Dead code - unreachable
+		fmt.Println("This code is never executed")
+	}
 
-    // This is always false
-    x := 2
-    if x < 0 {
-        fmt.Println("hello")
-    }
+	// The following line is also dead code
+	return a + b
 }
 ```
 
 ### After
 
 ```
-func main() {
-    fmt.Println("Hello, World!")
+func calculateSum(a, b int) int {
+	return a + b
 }
 ```

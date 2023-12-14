@@ -6,17 +6,25 @@ Two code fragments look almost identical.
 ## What It Looks Like
 
 ```
-func main() {
-    x := 5
-    y := 10
+type Request struct {
+    ID int64
+    Description string
+}
 
-    // Calculation 1
-    sum1 := x + y
-    fmt.Printf("Sum 1: %d\n", sum1)
+func (req *Request) create(userRole string) error {
+    if userRole == "ADMIN" {
+        Err("This role is not allowed to do this action")
+    }
 
-    // Calculation 2 (Identical to Calculation 1)
-    sum2 := x + y
-    fmt.Printf("Sum 2: %d\n", sum2)
+    // logic to create request
+}
+
+func (req *Request) delete(userRole string) error {
+    if userRole == "ADMIN" {
+        return Err("This role is not allowed to do this action")
+    }
+
+    // logic to delete request
 }
 ```
 
@@ -26,27 +34,41 @@ It can lead to maintenance challenges, increased risk of errors, and reduced cod
 
 ## How To Fix It
 
-[Extract Method](.././../2.%20refactorings/extract-method.md).
+- If the same code is found in two or more methods in the same class: use [Extract Method](.././../2.%20refactorings/extract-method.md).
 
 ## Refactor
 
 ```
-func calculateSum(x, y int) int {
-    return x + y
+type Request struct {
+    ID          int64
+    Description string
 }
 
-func main() {
-    x := 5
-    y := 10
-
-    // Calculation 1
-    sum1 := calculateSum(x, y)
-    fmt.Printf("Sum 1: %d\n", sum1)
-
-    // Calculation 2 (Identical to Calculation 1)
-    sum2 := calculateSum(x, y)
-    fmt.Printf("Sum 2: %d\n", sum2)
+func (req *Request) checkPermission(userRole string) error {
+    if userRole == "ADMIN" {
+        return Err("This role is not allowed to do this action")
+    }
+    return nil
 }
+
+func (req *Request) create(userRole string) error {
+    if err := req.checkPermission(userRole); err != nil {
+        return err
+    }
+
+    // Logic to create request
+    return nil
+}
+
+func (req *Request) delete(userRole string) error {
+    if err := req.checkPermission(userRole); err != nil {
+        return err
+    }
+
+    // Logic to delete request
+    return nil
+}
+
 ```
 
 ## Payoff

@@ -5,14 +5,16 @@ A variable, parameter, field, method or class is no longer used (usually because
 ## What It Looks Like
 
 ```
-func main() {
-    fmt.Println("Hello, World!")
+// Function with dead code
+func calculateSum(a, b int) int {
+	// This block of code is not reachable
+	if false {
+		// Dead code - unreachable
+		fmt.Println("This code is never executed")
+	}
 
-    // This is always false
-    x := 2
-    if x < 0 {
-        fmt.Println("hello")
-    }
+	// The following line is also dead code
+	return a + b
 }
 ```
 
@@ -23,13 +25,14 @@ Dead code adds unnecessary complexity to the codebase, making it harder to under
 
 ## How To Fix It
 
-[Remove Dead Code](.././../2.%20refactorings/remove-dead-code.md).
+- [Remove Dead Code](.././../2.%20refactorings/remove-dead-code.md).
+- [Remove Parameter](.././../2.%20refactorings/remove-parameter.md) to remove unneeded parameters
 
 ## Refactor 
 
 ```
-func main() {
-    fmt.Println("Hello, World!")
+func calculateSum(a, b int) int {
+	return a + b
 }
 ```
 

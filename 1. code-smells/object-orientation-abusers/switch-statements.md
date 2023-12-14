@@ -6,62 +6,52 @@ You have a complex switch operator or sequence of if statements.
 
 
 ```
-// BirdType represents the type of bird.
-type BirdType int
+type ShapeType int
 
 const (
-	EUROPEAN BirdType = iota
-	AFRICAN
-	NORWEGIAN_BLUE
+	CircleType ShapeType = iota
+	RectangleType
 )
 
-// Bird represents a bird.
-type Bird struct {
-	BirdType        BirdType
-	BaseSpeed       float64
-	LoadFactor      float64
-	NumberOfCoconuts int
-	IsNailed        bool
-	Voltage         float64
+type Shape struct {
+	Type ShapeType
 }
 
-func NewBird(birdType BirdType) *Bird {
-	return &Bird{BirdType: birdType}
-}
-
-func (b *Bird) GetSpeed() float64 {
-	switch b.BirdType {
-	case EUROPEAN:
-		return b.getBaseSpeed()
-	case AFRICAN:
-		return b.getBaseSpeed() - b.getLoadFactor()*float64(b.NumberOfCoconuts)
-	case NORWEGIAN_BLUE:
-		if b.IsNailed {
-			return 0
-		}
-		return b.getBaseSpeed(b.Voltage)
+func CalculateArea(shape Shape) float64 {
+	switch shape.Type {
+	case CircleType:
+		// Complex logic for Circle
+		return calculateCircleArea()
+	case RectangleType:
+		// Complex logic for Rectangle
+		return calculateRectangleArea()
 	default:
-		panic(errors.New("Should be unreachable"))
+		return 0
 	}
 }
 
-func (b *Bird) getBaseSpeed(voltage ...float64) float64 {
-	if len(voltage) > 0 {
-		return voltage[0]
-	}
-	return b.BaseSpeed
+func calculateCircleArea() float64 {
+	// Complex logic for calculating Circle area
+	return 3.14 * 5 * 5 // Assuming a fixed radius for simplicity
+}
+
+func calculateRectangleArea() float64 {
+	// Complex logic for calculating Rectangle area
+	return 4 * 6 // Assuming fixed dimensions for simplicity
 }
 
 func main() {
-	bird := NewBird(NORWEGIAN_BLUE)
-	bird.BaseSpeed = 10.0
-	bird.Voltage = 220.0
-	bird.IsNailed = false
+	circle := Shape{Type: CircleType}
+	rectangle := Shape{Type: RectangleType}
 
-	speed := bird.GetSpeed()
-	fmt.Printf("Bird Speed: %.2f\n", speed)
+	circleArea := CalculateArea(circle)
+	rectangleArea := CalculateArea(rectangle)
+
+	fmt.Printf("Circle area: %f\n", circleArea)
+	fmt.Printf("Rectangle area: %f\n", rectangleArea)
 }
 ```
+In this example, when we want to add a new shape, we need to modify the switch case. It violates open/closed principle from SOLID.
 
 ## Why It Hurts
 
@@ -69,91 +59,61 @@ Switch statements become overly complex, lengthy, or difficult to maintain.
 
 ## How To Fix It
 
-[Replace Conditional With Polymorphism](.././../2.%20refactorings/replace-conditional-with-polymorphism.md).
+- To isolate switch and put it in the right class, you may need [Extract Method](.././../2.%20refactorings/extract-method.md).
+- After specifying the inheritance structure, use [Replace Conditional With Polymorphism](.././../2.%20refactorings/replace-conditional-with-polymorphism.md).
+
+## When to ignore
+
+- When a switch operator performs simple actions, there’s no reason to make code changes.
+- Often switch operators are used by factory design patterns (Factory Method or Abstract Factory) to select a created class.
 
 ## Refactor
 
 ```
-// BirdType represents the type of bird.
-type BirdType int
-
-const (
-	EUROPEAN BirdType = iota
-	AFRICAN
-	NORWEGIAN_BLUE
-)
-
-// Bird represents a bird.
-type Bird struct {
-	BirdType        BirdType
-	BaseSpeed       float64
-	LoadFactor      float64
-	NumberOfCoconuts int
-	IsNailed        bool
-	Voltage         float64
+// Shape interface representing common behavior for all shapes
+type Shape interface {
+	CalculateArea() float64
 }
 
-func NewBird(birdType BirdType) *Bird {
-	return &Bird{BirdType: birdType}
+// Circle type implementing the Shape interface
+type Circle struct {
+	Radius float64
 }
 
-type SpeedCalculator interface {
-	CalculateSpeed(bird *Bird) float64
+// CalculateArea method for Circle
+func (c Circle) CalculateArea() float64 {
+	return 3.14 * c.Radius * c.Radius
 }
 
-type EuropeanSpeedCalculator struct{}
-
-func (c *EuropeanSpeedCalculator) CalculateSpeed(bird *Bird) float64 {
-	return bird.getBaseSpeed()
+// Rectangle type implementing the Shape interface
+type Rectangle struct {
+	Width  float64
+	Height float64
 }
 
-type AfricanSpeedCalculator struct{}
-
-func (c *AfricanSpeedCalculator) CalculateSpeed(bird *Bird) float64 {
-	return bird.getBaseSpeed() - bird.getLoadFactor()*float64(bird.NumberOfCoconuts)
-}
-
-type NorwegianBlueSpeedCalculator struct{}
-
-func (c *NorwegianBlueSpeedCalculator) CalculateSpeed(bird *Bird) float64 {
-	if bird.IsNailed {
-		return 0
-	}
-	return bird.getBaseSpeed(bird.Voltage)
-}
-
-func (b *Bird) GetSpeed() float64 {
-	var calculator SpeedCalculator
-
-	switch b.BirdType {
-	case EUROPEAN:
-		calculator = &EuropeanSpeedCalculator{}
-	case AFRICAN:
-		calculator = &AfricanSpeedCalculator{}
-	case NORWEGIAN_BLUE:
-		calculator = &NorwegianBlueSpeedCalculator{}
-	default:
-		panic(errors.New("Should be unreachable"))
-	}
-
-	return calculator.CalculateSpeed(b)
-}
-
-func (b *Bird) getBaseSpeed(voltage ...float64) float64 {
-	if len(voltage) > 0 {
-		return voltage[0]
-	}
-	return b.BaseSpeed
+// CalculateArea method for Rectangle
+func (r Rectangle) CalculateArea() float64 {
+	return r.Width * r.Height
 }
 
 func main() {
-	bird := NewBird(NORWEGIAN_BLUE)
-	bird.BaseSpeed = 10.0
-	bird.Voltage = 220.0
-	bird.IsNailed = false
+	// Creating instances of Circle and Rectangle
+	circle := Circle{Radius: 5}
+	rectangle := Rectangle{Width: 4, Height: 6}
 
-	speed := bird.GetSpeed()
-	fmt.Printf("Bird Speed: %.2f\n", speed)
+	// Using polymorphism to calculate areas
+	circleArea := calculateArea(circle)
+	rectangleArea := calculateArea(rectangle)
+
+	// Printing the results
+	fmt.Printf("Circle area: %f\n", circleArea)
+	fmt.Printf("Rectangle area: %f\n", rectangleArea)
+}
+
+// calculateArea function accepting any type that implements the Shape interface
+func calculateArea(shape Shape) float64 {
+	return shape.CalculateArea()
 }
 ```
+After implementing polymorphism, when we want to add a new shape, we do not need to modify existing code/function, we just need to create a new class that implements `Shape` interface.
 

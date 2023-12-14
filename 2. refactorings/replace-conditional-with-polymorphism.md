@@ -7,117 +7,99 @@ The name of a method doesn’t explain what the method does.
 ### Before
 
 ```
-// BirdType represents the type of bird.
-type BirdType int
+type ShapeType int
 
 const (
-	EUROPEAN BirdType = iota
-	AFRICAN
-	NORWEGIAN_BLUE
+	CircleType ShapeType = iota
+	RectangleType
 )
 
-// Bird represents a bird.
-type Bird struct {
-	BirdType        BirdType
-	BaseSpeed       float64
-	LoadFactor      float64
-	NumberOfCoconuts int
-	IsNailed        bool
-	Voltage         float64
+type Shape struct {
+	Type ShapeType
 }
 
-func NewBird(birdType BirdType) *Bird {
-	return &Bird{BirdType: birdType}
-}
-
-func (b *Bird) GetSpeed() float64 {
-	switch b.BirdType {
-	case EUROPEAN:
-		return b.getBaseSpeed()
-	case AFRICAN:
-		return b.getBaseSpeed() - b.getLoadFactor()*float64(b.NumberOfCoconuts)
-	case NORWEGIAN_BLUE:
-		if b.IsNailed {
-			return 0
-		}
-		return b.getBaseSpeed(b.Voltage)
+func CalculateArea(shape Shape) float64 {
+	switch shape.Type {
+	case CircleType:
+		// Complex logic for Circle
+		return calculateCircleArea()
+	case RectangleType:
+		// Complex logic for Rectangle
+		return calculateRectangleArea()
 	default:
-		panic(errors.New("Should be unreachable"))
+		return 0
 	}
 }
 
-func (b *Bird) getBaseSpeed(voltage ...float64) float64 {
-	if len(voltage) > 0 {
-		return voltage[0]
-	}
-	return b.BaseSpeed
+func calculateCircleArea() float64 {
+	// Complex logic for calculating Circle area
+	return 3.14 * 5 * 5 // Assuming a fixed radius for simplicity
+}
+
+func calculateRectangleArea() float64 {
+	// Complex logic for calculating Rectangle area
+	return 4 * 6 // Assuming fixed dimensions for simplicity
 }
 
 func main() {
-	bird := NewBird(NORWEGIAN_BLUE)
-	bird.BaseSpeed = 10.0
-	bird.Voltage = 220.0
-	bird.IsNailed = false
+	circle := Shape{Type: CircleType}
+	rectangle := Shape{Type: RectangleType}
 
-	speed := bird.GetSpeed()
-	fmt.Printf("Bird Speed: %.2f\n", speed)
+	circleArea := CalculateArea(circle)
+	rectangleArea := CalculateArea(rectangle)
+
+	fmt.Printf("Circle area: %f\n", circleArea)
+	fmt.Printf("Rectangle area: %f\n", rectangleArea)
 }
 ```
 
 ### After
 
 ```
-/ Bird defines the Bird interface with a GetSpeed method.
-type Bird interface {
-	GetSpeed() float64
+// Shape interface representing common behavior for all shapes
+type Shape interface {
+	CalculateArea() float64
 }
 
-// European represents a European bird.
-type European struct {
-	BaseSpeed float64
+// Circle type implementing the Shape interface
+type Circle struct {
+	Radius float64
 }
 
-func (e *European) GetSpeed() float64 {
-	return e.BaseSpeed
+// CalculateArea method for Circle
+func (c Circle) CalculateArea() float64 {
+	return 3.14 * c.Radius * c.Radius
 }
 
-// African represents an African bird.
-type African struct {
-	BaseSpeed       float64
-	LoadFactor      float64
-	NumberOfCoconuts int
+// Rectangle type implementing the Shape interface
+type Rectangle struct {
+	Width  float64
+	Height float64
 }
 
-func (a *African) GetSpeed() float64 {
-	return a.BaseSpeed - a.LoadFactor*float64(a.NumberOfCoconuts)
-}
-
-// NorwegianBlue represents a Norwegian Blue bird.
-type NorwegianBlue struct {
-	BaseSpeed float64
-	IsNailed  bool
-	Voltage   float64
-}
-
-func (n *NorwegianBlue) GetSpeed() float64 {
-	if n.IsNailed {
-		return 0
-	}
-	return n.BaseSpeed * n.Voltage
+// CalculateArea method for Rectangle
+func (r Rectangle) CalculateArea() float64 {
+	return r.Width * r.Height
 }
 
 func main() {
-	european := &European{BaseSpeed: 10.0}
-	african := &African{BaseSpeed: 10.0, LoadFactor: 1.5, NumberOfCoconuts: 2}
-	norwegianBlue := &NorwegianBlue{BaseSpeed: 10.0, IsNailed: false, Voltage: 220.0}
+	// Creating instances of Circle and Rectangle
+	circle := Circle{Radius: 5}
+	rectangle := Rectangle{Width: 4, Height: 6}
 
-	// Somewhere in client code
-	birds := []Bird{european, african, norwegianBlue}
-	for _, bird := range birds {
-		speed := bird.GetSpeed()
-		fmt.Printf("Bird Speed: %.2f\n", speed)
-	}
+	// Using polymorphism to calculate areas
+	circleArea := calculateArea(circle)
+	rectangleArea := calculateArea(rectangle)
+
+	// Printing the results
+	fmt.Printf("Circle area: %f\n", circleArea)
+	fmt.Printf("Rectangle area: %f\n", rectangleArea)
+}
+
+// calculateArea function accepting any type that implements the Shape interface
+func calculateArea(shape Shape) float64 {
+	return shape.CalculateArea()
 }
 ```
+We create an interface `Shape`, and some classes will implement that interface. So, when we want to add a new shape, we just need to create a new class and this class should implement `Shape` interface without modify existing code.
 
-In this refactored code, the method name AddNumbers clearly conveys its purpose, making the comment unnecessary. The code is now more self-explanatory and easier to understand.
